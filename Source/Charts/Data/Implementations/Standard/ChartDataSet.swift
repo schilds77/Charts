@@ -213,8 +213,11 @@ open class ChartDataSet: ChartBaseDataSet
         closestToY yValue: Double,
         rounding: ChartDataSetRounding) -> Int
     {
+        guard !self.isEmpty else { return -1 }
+        
         var closest = partitioningIndex { $0.x >= xValue }
-        guard closest < endIndex else { return -1 }
+       
+        if closest >= self.endIndex { closest = self.endIndex - 1 }
 
         let closestXValue = self[closest].x
 
